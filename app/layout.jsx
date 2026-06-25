@@ -33,7 +33,7 @@ export default async function RootLayout({ children }) {
           navbar={navbar}
           footer={<Footer>MIT {new Date().getFullYear()} © Hyperreal.</Footer>}
           editLink="Edit this page on GitHub"
-          docsRepositoryBase="https://github.com/YOUR_USERNAME/hyperreal/tree/main"
+          docsRepositoryBase="https://github.com/kaganguru/hyperreal/tree/main"
           sidebar={{ defaultMenuCollapseLevel: 1 }}
           pageMap={pageMap}
         >
