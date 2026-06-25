@@ -1,0 +1,21 @@
+/**
+ * Edit colors with the VS Code color picker (#hex values below).
+ * Adjust stop percentages to control where each color sits in the gradient.
+ */
+.button {
+  --shining-btn-color-1: #3b82f6;
+  --shining-btn-stop-1: 0%;
+
+  --shining-btn-color-2: #2563eb;
+  --shining-btn-stop-2: 50%;
+
+  --shining-btn-color-3: #1e40af;
+  --shining-btn-stop-3: 100%;
+
+  background-image: linear-gradient(
+    to bottom,
+    var(--shining-btn-color-1) var(--shining-btn-stop-1),
+    var(--shining-btn-color-2) var(--shining-btn-stop-2),
+    var(--shining-btn-color-3) var(--shining-btn-stop-3)
+  );
+}
