@@ -1,0 +1,31 @@
+# Get Started
+
+## Add a page
+
+Create a new `.mdx` file in the `content/` directory:
+
+```mdx filename="content/my-page.mdx"
+# My Page
+
+Your content here.
+```
+
+Register it in `content/_meta.js` to control sidebar order and titles.
+
+## Local development
+
+```bash
+npm install
+npm run dev
+```
+
+Open [http://localhost:3000/hyperreal](http://localhost:3000/hyperreal) in your browser.
+
+## Deploy to GitHub Pages
+
+1. Create a GitHub repository named `hyperreal`.
+2. Push this project to the `main` branch.
+3. In the repository settings, set **Pages → Build and deployment → Source** to **GitHub Actions**.
+4. Push to `main` — the included workflow builds and publishes the static site.
+
+Your site will be available at `https://YOUR_USERNAME.github.io/hyperreal/`.
