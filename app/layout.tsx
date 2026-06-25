@@ -23,16 +23,16 @@ export default async function RootLayout({
   const navbar = (
     <Navbar
       logo={
-        <Image
-          src={logo}
-          alt="Hyperreal"
-          height={24}
-          priority
-        />
+        // <Image
+        //   src={logo}
+        //   alt="Hyperreal"
+        //   height={24}
+        //   priority
+        // />
+        <span className="text-[1.5rem] font-black">Real as fu©k.</span>
       }
-    >
-      <ShiningButton>Purchase ↗</ShiningButton>
-    </Navbar>
+      children={<ShiningButton>Purchase ↗</ShiningButton>}
+    />
   )
   const pageMap = await getPageMap()
 
@@ -40,7 +40,7 @@ export default async function RootLayout({
     <html lang="en" dir="ltr" suppressHydrationWarning>
       <Head
         faviconGlyph="◈"
-        backgroundColor={{ dark: 'rgb(10, 10, 10)' }}
+        backgroundColor={{ dark: 'rgb(16, 16, 10)' }}
         color={{
           hue: 37,
           saturation: 0,
