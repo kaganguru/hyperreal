@@ -1,6 +1,6 @@
 /* eslint-env node */
 import { Footer, Layout, Navbar } from 'nextra-theme-docs'
-import { Head } from 'nextra/components'
+import { Head, Button } from 'nextra/components'
 import { getPageMap } from 'nextra/page-map'
 import 'nextra-theme-docs/style.css'
 
@@ -21,17 +21,18 @@ export default async function RootLayout({ children }) {
           <span style={{ opacity: '60%' }}>Documentation</span>
         </div>
       }
+      children={<Button variant="default">Buy Now</Button>}
     />
   )
   const pageMap = await getPageMap()
 
   return (
     <html lang="en" dir="ltr" suppressHydrationWarning>
-      <Head faviconGlyph="◈" />
+      <Head faviconGlyph="◈" backgroundColor={{ dark: 'rgb(10, 10, 10)' }} />
       <body>
         <Layout
           navbar={navbar}
-          footer={<Footer>MIT {new Date().getFullYear()} © Hyperreal.</Footer>}
+          // footer={<Footer>MIT {new Date().getFullYear()} © Hyperreal.</Footer>}
           editLink="Edit this page on GitHub"
           docsRepositoryBase="https://github.com/kaganguru/hyperreal/tree/main"
           sidebar={{ defaultMenuCollapseLevel: 1 }}
