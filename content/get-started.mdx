@@ -19,7 +19,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000/hyperreal](http://localhost:3000/hyperreal) in your browser.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Deploy to GitHub Pages
 
@@ -28,4 +28,12 @@ Open [http://localhost:3000/hyperreal](http://localhost:3000/hyperreal) in your 
 3. In the repository settings, set **Pages → Build and deployment → Source** to **GitHub Actions**.
 4. Push to `main` — the included workflow builds and publishes the static site.
 
-Your site will be available at `https://YOUR_USERNAME.github.io/hyperreal/`.
+## Custom domain
+
+The site is configured to serve from the root of a custom domain, set by
+`public/CNAME`. Point the apex domain at GitHub's Pages IPs, then enable
+**Settings → Pages → Enforce HTTPS**.
+
+If you drop the custom domain and go back to `USERNAME.github.io/hyperreal/`,
+restore `basePath: '/hyperreal'` and `assetPrefix: '/hyperreal/'` in
+`next.config.mjs` — without them every asset 404s under the subpath.

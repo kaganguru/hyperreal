@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { Layout, Navbar } from 'nextra-theme-docs'
 import { Head } from 'nextra/components'
-import { ShiningButton } from '@/components/ui/shining-button'
+import { PurchaseButton } from '@/components/purchase-button'
 import { getPageMap } from 'nextra/page-map'
 import logo from './logo.png'
 import './globals.css'
@@ -29,9 +29,9 @@ export default async function RootLayout({
         //   height={24}
         //   priority
         // />
-        <span className="text-[1.5rem] font-black">Real as fu©k.</span>
+        <span className="text-[1.5rem] font-semibold">Hyperreal© Graphics</span>
       }
-      children={<ShiningButton>Purchase ↗</ShiningButton>}
+      children={<PurchaseButton />}
     />
   )
   const pageMap = await getPageMap()

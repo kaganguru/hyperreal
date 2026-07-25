@@ -3,6 +3,8 @@
   "private": true,
   "scripts": {
     "dev": "next",
+    "itch:refresh": "node scripts/fetch-itch.mjs",
+    "prebuild": "node scripts/fetch-itch.mjs",
     "build": "next build --webpack",
     "postbuild": "pagefind --site .next/server/app --output-path out/_pagefind && touch out/.nojekyll",
     "start": "next start"

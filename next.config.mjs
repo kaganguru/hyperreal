@@ -7,8 +7,9 @@ const withNextra = nextra({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
-  basePath: '/hyperreal',
-  assetPrefix: '/hyperreal/',
+  // Served from the root of a custom domain, so no basePath/assetPrefix.
+  // Re-add basePath: '/hyperreal' if you ever fall back to
+  // kaganguru.github.io/hyperreal.
   images: {
     unoptimized: true
   },
