@@ -23,13 +23,10 @@ export default async function RootLayout({
   const navbar = (
     <Navbar
       logo={
-        // <Image
-        //   src={logo}
-        //   alt="Hyperreal"
-        //   height={24}
-        //   priority
-        // />
-        <span className="text-[1.5rem] font-semibold">Hyperreal© Graphics</span>
+        <span className="flex items-center gap-1 text-[1.5rem] font-bold text-blue-100 ">
+          <Image src={logo} alt="Hyperreal" height={24} priority className='-mb-1'/>
+          Graphics
+        </span>
       }
       children={<PurchaseButton />}
     />
