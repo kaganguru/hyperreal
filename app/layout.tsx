@@ -12,7 +12,11 @@ export const metadata = {
     default: 'Hyperreal',
     template: '%s – Hyperreal'
   },
-  description: 'Hyperreal documentation'
+  description: 'Hyperreal documentation',
+  icons: {
+    icon: '/favicon.png',
+    apple: '/favicon.png'
+  }
 }
 
 export default async function RootLayout({
@@ -23,9 +27,9 @@ export default async function RootLayout({
   const navbar = (
     <Navbar
       logo={
-        <span className="flex items-center gap-1 text-[1.5rem] font-bold text-blue-100 ">
-          <Image src={logo} alt="Hyperreal" height={24} priority className='-mb-1'/>
-          Graphics
+        <span className="flex items-center gap-1 text-[1.5rem] font-bold text-blue-100">
+          <Image src={logo} alt="Hyperreal" height={18} priority/>
+          Hyperreal<span className='text-[0.5rem]'>©</span>
         </span>
       }
       children={<PurchaseButton />}
@@ -36,7 +40,6 @@ export default async function RootLayout({
   return (
     <html lang="en" dir="ltr" suppressHydrationWarning>
       <Head
-        faviconGlyph="◈"
         backgroundColor={{ dark: 'rgb(16, 16, 10)' }}
         color={{
           hue: 37,
