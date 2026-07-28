@@ -8,8 +8,12 @@
  * unchallenged and carries the same fields, so we read it here and bake the
  * result into the bundle.
  *
- * Network failures are non-fatal: the previously committed JSON/cover are kept
- * so offline and CI builds still work.
+ * Network failures are non-fatal: the previously committed JSON is kept so
+ * offline and CI builds still work.
+ *
+ * Only the store text (title, price, CTA) is pulled. The cover is `public/
+ * itch-cover.png`, owned by this repo — it is deliberately not scraped, so the
+ * widget's artwork never depends on itch's markup or CDN.
  */
 
 import { writeFile } from 'node:fs/promises'
@@ -23,7 +27,6 @@ const UA =
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const DATA_OUT = join(root, 'components', 'itch-data.json')
-const COVER_OUT = join(root, 'public', 'itch-cover.png')
 
 const decode = (s = '') =>
   s
@@ -58,18 +61,7 @@ async function main() {
   const originalPrice = pick(html, /class="original_price"[^>]*>([^<]+)</)
   const saleRate = pick(html, /class="sale_tag"[^>]*>([^<]+)</)
 
-  // srcset carries the 2x asset; fall back to the 1x src.
-  const cover =
-    pick(html, /class="thumb"[^>]*srcset="([^"\s]+)/) ??
-    pick(html, /class="thumb"[^>]*src="([^"]+)"/)
-
   if (!title || !price) throw new Error('could not parse title/price from embed')
-
-  if (cover) {
-    const img = await fetch(cover, { headers: { 'User-Agent': UA } })
-    if (!img.ok) throw new Error(`cover image returned ${img.status}`)
-    await writeFile(COVER_OUT, Buffer.from(await img.arrayBuffer()))
-  }
 
   const data = {
     title,
@@ -82,7 +74,6 @@ async function main() {
     cta: cta || 'Purchase',
     gameUrl,
     purchaseUrl,
-    cover: cover ? '/itch-cover.png' : null,
     fetchedAt: new Date().toISOString()
   }
 

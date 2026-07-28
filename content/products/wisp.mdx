@@ -1,0 +1,75 @@
+---
+title: Wisp
+description: The billboard card shader — flipbooks, flow, wind and fades.
+---
+
+import { Callout } from 'nextra/components'
+
+# Wisp
+
+Wisp is the master card shader. Anything you'd render on a quad that has to face
+the camera and not look like a quad — smoke, dust, fire, splashes, distant
+foliage, magic — goes through it.
+
+A billboard is an illusion, and every problem with it is a moment where the
+illusion breaks. Wisp is mostly a collection of solutions to those moments.
+
+## Animation
+
+- **Flipbooks.** Point it at an atlas, set the grid, set the frame rate. Frames
+  are always blended into each other, so a short animation doesn't strobe — you
+  can ship a 16-frame smoke puff and have it read as smooth.
+- **Seamless loops.** Fade the card in at the start of its cycle and out at the
+  end, and a looping effect stops announcing where the loop is.
+- **No marching in step.** Turn on world-position randomisation and every
+  instance starts at a different point in the animation, with no per-instance
+  setup and no scripting.
+- **Manual control.** Scrub the animation by hand from a script when you want
+  the timing to follow gameplay instead of the clock.
+- **Scrolling textures** for effects that don't need a flipbook at all.
+
+## Flow
+
+Flow maps distort the card over time, in two modes:
+
+- **Distortion** — the texture churns and warps continuously. Good for smoke,
+  fog and fire, and it never pops as it cycles.
+- **Optical flow** — a low-frame-count flipbook is interpolated along real
+  motion, so it moves like a high-frame-rate one without the memory cost of
+  the extra frames.
+
+## Wind
+
+A wind field drifts and warps the card independently of everything else, with
+its own speed, scale and intensity. Cards in a group sway together instead of
+each doing its own thing, so a stand of foliage moves like one plant rather
+than fifty.
+
+## Hiding the illusion
+
+The part that matters:
+
+- **Soft intersections** — smoke meets the floor instead of slicing into it.
+- **Fade on approach** — the card dissolves as the camera walks into it,
+  rather than filling the screen.
+- **Fade at distance** — cards can be culled far away without a visible pop.
+- **Fade at extreme angles** — a billboard gives itself away when you see it
+  edge-on, so past a threshold it fades out.
+- **Facing behaviour past a threshold** — instead of pivoting forever to face
+  you, the card can compensate in a way that stays convincing from above.
+- **Soft edges** — a rounded mask so the quad's corners never show.
+
+Each of these has its own transition control, so you tune where it starts and
+how sharply it happens.
+
+## Lighting
+
+Cards take a normal map for real surface detail, and a roundness control that
+makes a flat quad shade like a volume — a puff of smoke lights from the side
+like a sphere, not like a poster. Combined with proper alpha handling, cards
+light and self-shadow plausibly from any direction.
+
+<Callout type="info">
+  Not included: 3D flipbooks, six-point lighting and aerial-perspective
+  integration. Wisp is a card shader, not a volumetric system.
+</Callout>

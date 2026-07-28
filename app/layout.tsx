@@ -10,7 +10,7 @@ import 'nextra-theme-docs/style.css'
 export const metadata = {
   title: {
     default: 'Hyperreal',
-    template: '%s – Hyperreal'
+    template: 'Hyperreal - %s'
   },
   description: 'Hyperreal documentation',
   icons: {

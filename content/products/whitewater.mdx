@@ -1,0 +1,110 @@
+---
+title: Whitewater
+description: A versatile, cheap water shader with an out-of-the-box underwater state.
+---
+
+import { Callout } from 'nextra/components'
+import { Clip, Shot, MediaRow } from '@/components/media'
+
+# Whitewater
+
+Hyperreal© Whitewater is one shader that covers the whole water problem:
+the surface, the depth beneath it, and the view from below. Drop it on any mesh
+— a plane, a river spline, a bathtub — and it works out where the bottom is on
+its own. No volume to author, no second material, no setup scene.
+
+<Clip
+  src="/dev-assets/water-close-shot.mp4"
+  poster="/dev-assets/posters/water-close-shot.jpg"
+  caption="Waves, ripples and fine detail moving against each other."
+/>
+
+## Surface
+
+Four independent layers of motion stack into the surface — swell, ripples, and
+two grades of fine detail. Each has its own scale, speed and strength, so you
+can tune the silhouette of the water separately from its sparkle. One master
+speed drives them all when you just want the whole thing calmer or angrier.
+
+Every layer takes your own textures, so the character of the water is yours to
+change. Tiling is broken up automatically — no visible repeat on a large body
+of water, at any distance.
+
+## Depth and colour
+
+Water colour comes from how far light travels through it, not from a flat
+transparency setting. Shallows read warm and let the bottom through; the
+channel goes deep and opaque; the transition between them is continuous. You
+control how fast that happens, where it starts, and what colour the water
+absorbs toward.
+
+Refraction bends whatever is behind the surface, and a distance fade keeps a
+large lake looking like water at the horizon instead of dissolving into
+shimmer.
+
+<MediaRow>
+  <Shot
+    src="/dev-assets/water-old-medium-shot.png"
+    alt="Shallow water over a sand bar, with the bottom visible through it"
+    caption="The sand bar reads clearly through the shallows and disappears into the channel."
+  />
+  <Shot
+    src="/dev-assets/water-old-far-shot.png"
+    alt="A large flat body of water fading into overcast haze at the horizon"
+    caption="Distance fade keeps a large body of water calm and readable."
+  />
+</MediaRow>
+
+## Caustics and subsurface
+
+Caustics play across whatever sits under the water, and they move with the
+surface rather than sliding against it — the single most common tell in a water
+shader. Scale, intensity and wobble are yours.
+
+Subsurface scattering lights the backs of waves, which is what sells thickness
+on a crest with the sun behind it.
+
+## Underwater, out of the box
+
+Cross the surface and you're underwater. It's the same material, with its own
+set of controls — nothing to script, nothing to trigger, no second shader to
+keep in sync.
+
+<Clip
+  src="/dev-assets/water-underwater-shot.mp4"
+  poster="/dev-assets/posters/water-underwater-shot.jpg"
+  autoplay
+  caption="Underwater: colour absorbing with distance, refractive warp, and god rays."
+/>
+
+- **Colour absorption with distance** — the reason deep water goes blue-green,
+  tunable per channel.
+- **Its own depth falloff**, tuned for looking outward rather than down.
+- **Caustics on everything around you**, at their own intensity.
+- **Refractive warp** across the whole view.
+- **God rays**, with speed and density controls.
+
+<Clip
+  src="/dev-assets/water-old-medium-shot.mp4"
+  poster="/dev-assets/posters/water-old-medium-shot.jpg"
+  caption="Above and below share one material, so the transition costs you nothing."
+/>
+
+## Built to be cheap
+
+Whitewater is written to run on modest hardware, including the Mobile renderer.
+Work that can't be seen isn't done: detail that has no effect at distance is
+skipped, and effects fade out before they stop earning their cost. A single
+mesh renders correctly viewed from either side, so you don't need a second one
+for the underside.
+
+<Callout type="info">
+  Water is a screen-space effect: cost scales with how much of the frame it
+  covers, not with how large the body of water is.
+</Callout>
+
+## Not included
+
+So you know what you're buying: no screen-space reflections, no simulated wave
+displacement, no wave-driven foam, and no impact or ripple-spawning system.
+Waves are texture-driven, which is what keeps them cheap and art-directable.

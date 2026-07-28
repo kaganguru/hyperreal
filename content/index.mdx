@@ -1,17 +1,80 @@
-# Hyperreal
+---
+title: Introduction
+description: Plug-and-play photorealistic environment shaders for Godot 4.7+.
+---
 
-Welcome to **Hyperreal** — a documentation site built with
-[Nextra](https://nextra.site) and the docs theme.
+import { Cards } from 'nextra/components'
+import { Clip, Shot } from '@/components/media'
 
-This project uses the default **content directory** convention with static
-generation at build time.
+# Hyperreal©
 
-## What you get
+Photorealistic environment shaders for Godot, built to be cheap enough to ship.
 
-- Docs theme with sidebar navigation
-- MDX content in the `content/` directory
-- Static export for GitHub Pages
+<Shot
+  src="/dev-assets/terrain.png"
+  alt="Rolling green hills with exposed rock and a distant river, rendered in the Godot editor"
+  caption="Terrain, running in the Godot editor."
+/>
 
-## Next steps
+Godot can look like this. The problem has never been the renderer — it's that
+the material systems around it are built for stylized work, and the realistic
+path means either writing your own shaders or paying for effects you can't
+afford on a mid-range GPU.
 
-Head to [Get Started](/get-started) to learn how to add pages and deploy updates.
+Hyperreal is eight add-ons that take the other route: photorealistic results
+from controls you can actually author, at a cost you can actually ship.
+
+<Clip
+  src="/dev-assets/water-close-shot.mp4"
+  poster="/dev-assets/posters/water-close-shot.jpg"
+  caption="Whitewater — one material covering the surface, the depth beneath it, and the view from underwater."
+/>
+
+## What's in it
+
+<Cards>
+  <Cards.Card title="Terrain" href="/products/terrain" arrow>
+    A Terrain3D material built around materials instead of textures, with
+    colour control that survives painting.
+  </Cards.Card>
+  <Cards.Card title="Whitewater" href="/products/whitewater" arrow>
+    Surface and underwater in one shader, with a full submarine state out of
+    the box.
+  </Cards.Card>
+  <Cards.Card title="Wisp" href="/products/wisp" arrow>
+    Billboard cards with flipbooks, flow, wind and every fade needed to hide
+    the illusion.
+  </Cards.Card>
+  <Cards.Card title="Camera" href="/products/camera" arrow>
+    Lens optics, layered shake, and an operator that walks and flies your
+    camera.
+  </Cards.Card>
+  <Cards.Card title="Sky & Fog" href="/products/sky" arrow>
+    Distance fog that matches your actual sky, plus sky projections that
+    parallax.
+  </Cards.Card>
+  <Cards.Card title="Toolkit" href="/toolkit" arrow>
+    The shared lighting, billboarding and texture-array add-ons underneath.
+  </Cards.Card>
+</Cards>
+
+## Design principles
+
+**Cheap by default.** Every effect is built for the Mobile renderer first, not
+retrofitted to it. Turning a feature off costs nothing rather than a little.
+
+**Authorable, not procedural.** Terrain materials are property blocks you tune
+by hand, not noise stacks you fight. Water is driven by textures you can
+replace with your own.
+
+**One lighting model.** Terrain, water and cards all light the same way, so a
+look you establish on one carries to the others.
+
+**Real inspector controls.** Everything is exposed as named, ranged, grouped
+properties — no magic numbers buried in shader code.
+
+<Cards>
+  <Cards.Card title="Get Hyperreal" href="/get-started" arrow>
+    What ships in the bundle, what it needs, and how to install it.
+  </Cards.Card>
+</Cards>

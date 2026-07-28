@@ -1,0 +1,127 @@
+---
+title: Terrain
+description: An opinionated Terrain3D material built for photorealism on a budget.
+---
+
+import { Callout } from 'nextra/components'
+import { Shot, MediaRow } from '@/components/media'
+
+# Terrain
+
+Hyperreal© Terrain is an opinionated terrain material built on top of
+[Terrain3D](https://github.com/TokisanGames/Terrain3D). It keeps everything
+Terrain3D is good at — regions, sculpting, painting, streaming — and replaces
+the part you actually look at: the material.
+
+<Shot
+  src="/dev-assets/terrain.png"
+  alt="Rolling green hills with exposed rock and a river bed in the distance"
+  caption="Grass, rock and river bed over a single painted control map."
+/>
+
+## Materials, not textures
+
+Stock Terrain3D thinks in textures. That means duplicating a texture every time
+you want the same rock at a different roughness, and it leaves no room for a
+surface that has no texture at all.
+
+Hyperreal Terrain thinks in **materials**. Your terrain holds a list of them,
+each with its own full property block, and each pointing at whatever textures
+it needs — or none.
+
+- **No texture redundancy.** Two materials that share an albedo cost one
+  texture, not two. Reuse is free.
+- **Textureless materials.** Water, snow, painted colour — surfaces that don't
+  need a bitmap don't pay for one.
+- **Ordering by drag.** A material's paint order is its position in the list.
+  Reorder it in the inspector and the terrain follows.
+- **Up to 32 materials** on a single terrain.
+
+### What you can tune per material
+
+Far more than stock gives you, grouped so the inspector stays readable:
+
+| Group | Controls |
+| --- | --- |
+| Colour | Lightness, chroma and hue offsets, plus how much macro variation reaches this material |
+| Textures | Two texture slots — enough for any common packing convention — and an average colour |
+| Material | Specularity, roughness, AO strength and AO influence, near and far normal map depth |
+| Eccentric | Light wrap colour and width, sheen colour and roughness |
+| UV | Scale, detiling shift, detiling rotation |
+
+**Specularity**, **far normal map depth** and the whole **eccentric** group are
+additions over stock Terrain3D. Average colour is derived from the texture
+automatically the moment you assign one, with a button to refresh it if the
+source image changes later.
+
+Editing any of these is instant. Nothing recompiles.
+
+### Special material types
+
+Water, snow, sand and anything else you invent are just material types with
+their own personality. A water material speaks in water terms — flow rather
+than ambient occlusion — hides the properties that don't apply to it, and
+brings sensible defaults with it, so you're not translating between what the
+inspector says and what you mean.
+
+Making your own type is a small script. The terrain itself never has to learn
+about it.
+
+## Colour that survives painting
+
+<MediaRow>
+  <Shot
+    src="/dev-assets/terrain1.png"
+    alt="Close view of a rocky mountain face with stratified bands"
+    caption="Normal map depth pushed hard up close…"
+  />
+  <Shot
+    src="/dev-assets/terrain2.png"
+    alt="Wide view of dark volcanic ridges with snow fields between them"
+    caption="…and eased off at distance, so ridgelines stay readable instead of aliasing."
+  />
+</MediaRow>
+
+Painting tint onto terrain normally fights you. Brushes blend in a colour space
+that doesn't match how you see colour, so red next to yellow gives you green in
+between, and a saturated tint over a desaturated rock texture makes its hue
+scatter.
+
+Hyperreal Terrain's colour controls are **perceptual**. Lightness, chroma and
+hue behave the way your eye expects: a tint does what you meant, brush edges
+blend through the colours you painted with rather than through a detour, and
+pushing saturation doesn't shred the texture underneath.
+
+<Callout type="info">
+  Colour is a per-material offset, not a global grade — so you can warm the
+  grass without touching the rock next to it.
+</Callout>
+
+## Lighting
+
+Terrain uses the [eccentric lighting model](/toolkit/eccentric-shading) shared
+across the bundle. It matches Godot's own lighting exactly, then adds what
+ground surfaces need:
+
+- **Specularity per material** — wet rock and dry moss on the same terrain.
+- **Light wrap** — the soft, scattered look of light passing through grass
+  blades and thin ground cover.
+- **Sheen** — the grazing sheen you get off dry grass and moss when the sun is
+  low and behind it.
+- **Subsurface parameters** for materials that need real depth.
+- **Distance-aware normals** — a normal map can be dramatic up close and calm
+  at range, instead of turning into shimmer on the horizon.
+
+## Importing
+
+The terrain node is its own importer. Point it at a folder of terrain assets
+and it works out which file is the heightmap, which is the control map and
+which is the colour map from their names — EXR, R16, PNG, WebP and JPEG all
+accepted. Position, scale and height offset are applied on the way in, and
+there's a guarded **Clear Terrain** button for starting over.
+
+No import dialog, no intermediate format, no round trip.
+
+## Requirements
+
+Terrain3D **1.1**, and Godot **4.7+**. See [Get Started](/get-started).

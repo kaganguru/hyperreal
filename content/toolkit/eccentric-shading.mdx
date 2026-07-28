@@ -1,0 +1,58 @@
+---
+title: Eccentric Shading
+description: Godot's lighting, matched exactly and then extended.
+---
+
+import { Callout } from 'nextra/components'
+
+# Eccentric Shading
+
+Writing a custom lighting function in Godot means giving up the engine's
+lighting entirely — and then spending a week trying to match it by eye. Objects
+shaded by your shader sit next to objects shaded by Godot's, and they never
+quite belong to the same scene.
+
+Eccentric Shading is the lighting model every Hyperreal surface uses. It starts
+from **exact parity with Godot's own lighting** — same diffuse, same specular,
+same energy at every angle and roughness — so a material you write with it
+belongs in the scene from the first frame. Then it adds what photorealistic
+surfaces need and Godot doesn't offer.
+
+## What it adds
+
+- **Subsurface scattering** — strength, tint, thickness and falloff, for
+  surfaces light actually passes through.
+- **Light wrap** — the soft scatter of light bending around thin material.
+  Grass blades, leaves, cloth.
+- **Sheen** — the grazing sheen off fabric, moss and dry grass when the light is
+  low and behind them.
+- **Per-fragment specularity** — control Godot's lighting function doesn't
+  expose at all.
+- **An alternative diffuse model** for surfaces that need a rougher, more matte
+  response than the default.
+
+## What it corrects
+
+Godot's own specular energy handling relies on data a user shader can't reach.
+Every hand-written Godot lighting function is therefore slightly dimmer than the
+built-in path at grazing angles and high roughness — most visibly on rough
+metal. That is the reason custom Godot shaders so often look subtly *off* even
+when the maths is right.
+
+Eccentric Shading closes that gap. Materials keep their intended brightness at
+every angle.
+
+<Callout type="info">
+  Every feature is opt-in. A capability you don't use costs nothing — not even
+  a branch — so a simple material stays as cheap as a simple material should
+  be.
+</Callout>
+
+## Where it's used
+
+[Terrain](/products/terrain) uses it, which is where its per-material
+specularity, light wrap and sheen come from. Because the whole bundle shares
+one lighting model, a look you establish on terrain carries over to water and
+to cards without re-tuning.
+
+You can use it in your own shaders too.

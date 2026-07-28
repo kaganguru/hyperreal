@@ -1,0 +1,90 @@
+---
+title: Camera
+description: Lens optics, layered shake, and a camera operator that shoots your scene.
+---
+
+import { Callout } from 'nextra/components'
+
+# Camera
+
+Three pieces that turn a `Camera3D` into a camera: the optics in front of the
+sensor, the hand holding it, and the operator walking it around.
+
+## Lens
+
+`Lens` folds four optical effects into one post-processing effect, and it runs
+on the **Mobile** renderer — which is where most Godot projects that care about
+performance actually live.
+
+Each effect is an independent toggle. Turning one off costs nothing at all, so
+you only pay for the look you're using.
+
+<Callout type="info">
+  Godot's own glow and post effects don't cover any of this on Mobile. `Lens`
+  is a drop-in on either renderer.
+</Callout>
+
+### Chromatic aberration
+
+Channel separation that grows toward the edges of the frame, with a strength
+control and a radial mode. The cheapest way to stop a render looking
+digitally clean.
+
+### Lens flare
+
+Ghosts and halo, tuned against real camera reference rather than a stock
+bloom. Nine ghosts, each with its own colour and position along the flare axis,
+plus a halo with its own radius, colour fringing and intensity. Controls for
+what counts as a light source and how soft the result is, so a flare responds
+to your lighting instead of blowing out on anything bright.
+
+### Lens dirt
+
+Your own grime texture, lit only by genuinely bright parts of the scene — so
+the smear across the lens flares when you look at the sun and stays invisible
+otherwise. Intensity and spread controls.
+
+### Vignette and grain
+
+Falloff with strength, size and softness. Sensor grain with amount, colour
+noise, and a boil rate — grain that moves at a filmic pace instead of buzzing
+every frame.
+
+## CameraRig
+
+`CameraRig` applies layered shake to every camera under it, in the editor and
+at runtime, so you can see the movement while you're framing rather than
+guessing at it.
+
+Shakes stack. Each fades in, plays for a set duration or loops until you remove
+it, then fades out — so you can hold a low idle sway, add a hit reaction on top,
+and let it resolve without either one snapping.
+
+**Nine camera motions ship with it**: investigation, close-up, wedding, walk to
+the store, handycam run, out a car window, plus three rotation-only ones —
+gravel bike, spaceship, and a rough handheld. Each can be sped up, slowed down
+and scaled without stepping or stuttering.
+
+Up to twenty can run at once. Author a shake in the inspector, save it as a
+resource, and spawn it from a script in one line. Adding or removing a camera
+needs no restart.
+
+## CameraMan
+
+`CameraMan` pilots a rig around the world in two modes:
+
+- **Ground** — a gravity-bound first-person operator, with jump.
+- **Drone** — free-look flight.
+
+Switching between them is one input action, and you choose what returning
+means: stay wherever the drone ended up, or ease back to where you took off
+from, at a speed and easing you set.
+
+Everything is smoothed on both movement and look, independently per mode, so
+footage reads as deliberate camera work rather than raw mouse input. Four shake
+presets — idle and moving, ground and drone — swap automatically as the
+operator starts, stops and changes mode. Leave any of them empty and that state
+simply runs clean.
+
+The result is a camera you can hand to someone to shoot your scene with,
+instead of a debug fly-cam you have to apologise for in the trailer.

@@ -1,0 +1,41 @@
+---
+title: Billboarding
+description: Camera-facing geometry, with four ways to keep the illusion.
+---
+
+import { Callout } from 'nextra/components'
+
+# Billboarding
+
+The master billboarding utility — the camera-facing behaviour behind
+[Wisp](/products/wisp), packaged so you can use it in your own shaders.
+
+Making a quad face the camera is the easy half. The hard half is what happens
+when the camera climbs above it, and that's what this is for.
+
+## Facing behaviours
+
+A billboard is convincing until you look at it from the wrong angle. Past a
+threshold you choose, it can respond in one of four ways:
+
+| | |
+| --- | --- |
+| **Always face** | The classic. The model tracks the camera at every angle. |
+| **Push** | Past the threshold the model starts rotating with the camera, flattening progressively rather than spinning on the spot. Best for grass and ground clutter seen from above. |
+| **Camera aligned** | Past the threshold it lies flat, scaled so the transition doesn't read as a size change. |
+| **Stretch** | No threshold — the model eases toward flat continuously as you rise. The smoothest option when the camera moves vertically a lot. |
+
+Each takes a threshold you set, so you decide where "the wrong angle" begins for
+your art.
+
+## Axis handling
+
+Billboards authored around either axis are supported directly. You don't rotate
+the mesh to change orientation — which would rotate the texture with it — so a
+texture painted upright stays upright and unmirrored.
+
+<Callout type="info">
+  Two lines to add to a shader: one to bring it in, one to call it. Behaviour is
+  configured where you bring it in, so it costs nothing to have options you
+  aren't using.
+</Callout>

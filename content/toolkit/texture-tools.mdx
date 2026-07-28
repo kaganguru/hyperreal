@@ -1,0 +1,35 @@
+---
+title: Texture Tools
+description: Build texture arrays in the editor without fighting format mismatches.
+---
+
+# Texture Tools
+
+`TextureArrayBuilder` builds a `Texture2DArray` from a plain list of textures in
+the inspector. Drop textures in, press **Rebuild**, save.
+
+Godot requires every layer of a texture array to share a format, a size and a
+mipmap setting. Real texture sets never do — one is compressed, one is a
+different resolution, one came from a different pack. Normally that means
+opening every file in an image editor before you can build anything.
+
+`TextureArrayBuilder` reconciles them for you, under a policy you choose:
+
+- **Format** — follow the first texture, force a specific format from the full
+  list Godot supports, or refuse to build on a mismatch so nothing is silently
+  converted behind your back.
+- **Size** — follow the first, resize everything up to the largest, resize down
+  to the smallest, or refuse on a mismatch.
+- **Mipmaps** — follow the first, force on, force off, or refuse on a mismatch.
+
+The strict modes are the point as much as the permissive ones: on a shipping
+texture set you usually *want* to be told that one file doesn't match, rather
+than have it quietly resampled.
+
+Rebuilding works from the inspector or from a script, so it fits both hand
+authoring and an import pipeline.
+
+---
+
+[Terrain](/products/terrain) uses this internally to assemble its shared
+texture arrays.

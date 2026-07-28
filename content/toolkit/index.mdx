@@ -1,0 +1,36 @@
+---
+title: Toolkit
+description: The shared libraries the Hyperreal products are built on.
+---
+
+import { Cards } from 'nextra/components'
+
+# Toolkit
+
+Three small add-ons that the [products](/products) are built on. They ship in
+the bundle and are documented because they're useful on their own — you can
+include them in shaders that have nothing to do with terrain or water.
+
+<Cards>
+  <Cards.Card title="Eccentric Shading" href="/toolkit/eccentric-shading" arrow>
+    Godot's lighting matched exactly, then extended with subsurface, light wrap
+    and sheen.
+  </Cards.Card>
+  <Cards.Card title="Billboarding" href="/toolkit/billboarding" arrow>
+    Camera-facing geometry, with four ways to keep the illusion from above.
+  </Cards.Card>
+  <Cards.Card title="Texture Tools" href="/toolkit/texture-tools" arrow>
+    Texture arrays built in the editor, with format, size and mipmap
+    reconciliation.
+  </Cards.Card>
+</Cards>
+
+## Dependencies
+
+| Product | Depends on |
+| --- | --- |
+| [Terrain](/products/terrain) | Eccentric Shading, Texture Tools |
+| [Wisp](/products/wisp) | Billboarding |
+| [Whitewater](/products/whitewater) | — |
+| [Camera](/products/camera) | — |
+| [Sky & Fog](/products/sky) | — |

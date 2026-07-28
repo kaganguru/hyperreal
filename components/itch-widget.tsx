@@ -1,6 +1,7 @@
 'use client'
 
-import { itch, openItchCheckout } from './itch'
+import Link from 'next/link'
+import { itch } from './itch'
 import styles from './itch-widget.module.css'
 
 export function ItchWidget() {
@@ -16,16 +17,16 @@ export function ItchWidget() {
         aria-label={`View ${itch.title} on itch.io`}
       >
         <div className={styles.cover}>
-          {itch.cover && (
-            <img
-              src={itch.cover}
-              alt=""
-              className={styles.coverImage}
-              width={360}
-              height={286}
-              loading="lazy"
-            />
-          )}
+          {/* Our own artwork in public/, not itch's CDN thumbnail — the
+              build-time refresh only touches the store text. */}
+          <img
+            src="/itch-cover.png"
+            alt=""
+            className={styles.coverImage}
+            width={360}
+            height={286}
+            loading="lazy"
+          />
           <span className={styles.coverLabel}>itch.io</span>
         </div>
       </a>
@@ -59,13 +60,12 @@ export function ItchWidget() {
             )}
           </div>
 
-          <button
-            type="button"
-            className={styles.buyButton}
-            onClick={openItchCheckout}
-          >
-            {itch.cta} ↗
-          </button>
+          {/* Goes to the pitch page rather than straight to itch's checkout —
+              /get-started is where the bundle contents, requirements and
+              licensing are explained, and where the checkout is triggered. */}
+          <Link href="/get-started" className={styles.buyButton}>
+            {itch.cta}
+          </Link>
         </div>
       </div>
     </div>

@@ -1,0 +1,61 @@
+---
+title: Sky & Fog
+description: Distance fog that matches your actual sky, plus sky projections that parallax.
+---
+
+import { Callout } from 'nextra/components'
+
+# Sky & Fog
+
+## Fog
+
+Custom fog in Godot never quite matches the horizon. Distant geometry fades
+toward a colour you picked, the sky behind it is a different colour, and the
+seam gives the whole shot away.
+
+`Fog` fixes that. It tints distance toward **your actual sky**, per view
+direction, so a mountain ten kilometres out dissolves into the clouds that are
+genuinely behind it. Point it at any Godot sky — including a physically
+simulated one — and it follows along automatically. There's nothing to assign
+and nothing to keep in sync.
+
+Like `Lens`, it runs on the **Mobile** renderer.
+
+What you control:
+
+- **Density** and how far fog can take a surface toward fully hidden.
+- **Aerial perspective** — a blend from a fog colour of your choosing to the
+  pure sky, matching the control name you already know from Godot's
+  `Environment`.
+- **How the sky resolves with distance** — near geometry picks up a soft, hazy
+  version of the sky, far geometry picks up a sharp one. That gradient is what
+  makes distance read as air rather than as a filter.
+- **Sky brightness** and **sky rotation**, to line the fog up with your scene.
+- **Quality**, traded against cost.
+
+A debug view puts depth, distance, fog amount and sampled sky colour on screen
+while you tune.
+
+<Callout type="warning">
+  Fog reads a snapshot of your sky. It refreshes automatically when you change
+  skies, but a sky that animates in place needs a manual refresh — one button,
+  or one call from a script.
+</Callout>
+
+## Sky projections
+
+Three sky shaders, driven from a single panorama with an exposure control. They
+exist because a panorama mapped at infinity is wrong the moment your camera can
+move relative to it.
+
+| | |
+| --- | --- |
+| **Dome** | Puts the sky on a dome of a size and position you set, sitting on your ground plane. The sky has a *place*, so it parallaxes correctly as the camera moves through the world. |
+| **Room** | Puts it on a box. Interior light and reflections through windows without capturing a cubemap. |
+| **Half** | An upper-hemisphere panorama, with the lower half progressively softened so it reads as haze instead of looking like the sky is transparent below the horizon. |
+
+<Callout type="info">
+  These are deliberately minimal — projection helpers, not an atmospheric
+  model. If you want physically simulated sky, use Godot's and point `Fog` at
+  it. They work together.
+</Callout>

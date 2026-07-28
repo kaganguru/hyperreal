@@ -1,39 +1,94 @@
-# Get Started
+---
+title: Get Started
+description: What ships in the Hyperreal bundle, what it needs, and how to install it.
+---
 
-## Add a page
+import { Callout, Cards, Steps } from 'nextra/components'
+import { CheckoutButton } from '@/components/purchase-button'
 
-Create a new `.mdx` file in the `content/` directory:
+# Get Hyperreal
 
-```mdx filename="content/my-page.mdx"
-# My Page
+One bundle, eight add-ons, no subscription. Everything below is delivered as a
+plain `addons/` folder you drop into your Godot project — no compiled binaries,
+no network calls, no license server.
 
-Your content here.
-```
+<div style={{ marginTop: '1.5rem', marginBottom: '2rem' }}>
+  <CheckoutButton />
+</div>
 
-Register it in `content/_meta.js` to control sidebar order and titles.
+## What you get
 
-## Local development
+| Add-on | What it is |
+| --- | --- |
+| [Terrain](/products/terrain) | A Terrain3D material built around materials instead of textures, with perceptual colour control and richer per-material properties. |
+| [Whitewater](/products/whitewater) | Surface, depth, caustics, subsurface and a full underwater state — in one material. |
+| [Wisp](/products/wisp) | The billboard card shader: flipbooks, flow, wind, and every fade needed to hide the illusion. |
+| [Camera](/products/camera) | Lens optics (aberration, flare, dirt, vignette, grain), layered camera shake, and a camera operator. |
+| [Sky & Fog](/products/sky) | Distance fog that matches your actual sky, plus dome, room and half-panorama sky projections. |
+| [Eccentric Shading](/toolkit/eccentric-shading) | The lighting model the whole bundle shares — Godot's, matched exactly, then extended. |
+| [Billboarding](/toolkit/billboarding) | Camera-facing geometry with four behaviours for holding up at extreme angles. |
+| [Texture Tools](/toolkit/texture-tools) | Texture arrays built in the editor, with format, size and mipmap reconciliation. |
 
-```bash
-npm install
-npm run dev
-```
+Also included:
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+- **Full source.** Every shader ships readable and editable. Nothing is
+  obfuscated, and nothing phones home.
+- **Free updates** for the lifetime of the bundle, from the same itch download
+  page.
+- **The demo scenes** used for the shots on this site, so you start from a
+  configured terrain and water setup instead of a blank material.
 
-## Deploy to GitHub Pages
+<Callout type="info">
+  This is a **pre-order**. Buying now locks the current price and gives you
+  access to every build as it lands.
+</Callout>
 
-1. Create a GitHub repository named `hyperreal`.
-2. Push this project to the `main` branch.
-3. In the repository settings, set **Pages → Build and deployment → Source** to **GitHub Actions**.
-4. Push to `main` — the included workflow builds and publishes the static site.
+## Requirements
 
-## Custom domain
+- **Godot 4.7** or newer.
+- Either renderer. The post-processing effects (`Lens`, `Fog`) are built to run
+  on **Mobile** as well as Forward+, which is unusual and deliberate.
+- **[Terrain3D](https://github.com/TokisanGames/Terrain3D) 1.1** — needed by the
+  Terrain add-on only. Every other add-on is standalone. Terrain3D is free and
+  MIT-licensed; you only need its `addons/terrain_3d` folder, not its demo
+  project.
 
-The site is configured to serve from the root of a custom domain, set by
-`public/CNAME`. Point the apex domain at GitHub's Pages IPs, then enable
-**Settings → Pages → Enforce HTTPS**.
+## Install
 
-If you drop the custom domain and go back to `USERNAME.github.io/hyperreal/`,
-restore `basePath: '/hyperreal'` and `assetPrefix: '/hyperreal/'` in
-`next.config.mjs` — without them every asset 404s under the subpath.
+<Steps>
+
+### Download and unzip
+
+Grab the archive from your itch library. Inside is a single `addons/` folder.
+
+### Copy into your project
+
+Copy the add-ons you want into your project's `addons/` directory. They are
+independent apart from two [toolkit dependencies](/toolkit#dependencies):
+Terrain needs Eccentric Shading and Texture Tools, and Wisp needs Billboarding.
+
+### Install Terrain3D (Terrain only)
+
+Drop `addons/terrain_3d` from the Terrain3D release into the same place and
+enable it in **Project → Project Settings → Plugins**.
+
+### Reload the project
+
+Godot needs a restart to pick up the new node and resource types.
+
+</Steps>
+
+## Licensing
+
+A single purchase covers **you or your studio** for **unlimited commercial
+projects**. You may modify the shaders and ship the compiled result in a game.
+You may not resell or redistribute the source as an asset pack, on its own or
+inside another pack.
+
+## Where to go next
+
+<Cards>
+  <Cards.Card title="All products" href="/products" arrow />
+  <Cards.Card title="Terrain" href="/products/terrain" arrow />
+  <Cards.Card title="Whitewater" href="/products/whitewater" arrow />
+</Cards>
