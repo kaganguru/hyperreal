@@ -1,4 +1,5 @@
 import { ItchWidget } from '@/components/itch-widget'
+import { RichCard } from '@/components/rich-card'
 
 export default {
   index: {
@@ -73,17 +74,35 @@ export default {
   Products: {
     title: 'Products',
     type: 'menu',
+    // Nextra renders each item as a link around its title, so the cards get no
+    // href of their own — `hoverable` gives them the hover effect instead.
     items: {
       terrain: {
-        title: 'Terrain',
+        title: (
+          <RichCard size="compact" hoverable image="/dev-assets/terrain1.png">
+            <span className="font-semibold">Terrain</span>
+          </RichCard>
+        ),
         href: '/terrain'
       },
       water: {
-        title: 'Water',
+        title: (
+          <RichCard
+            size="compact"
+            hoverable
+            image="/dev-assets/posters/water-close-shot.jpg"
+          >
+            <span className="font-semibold">Water</span>
+          </RichCard>
+        ),
         href: '/water'
       },
       'fog-and-wisps': {
-        title: 'Fog & Wisps',
+        title: (
+          <RichCard size="compact" hoverable>
+            <span className="font-semibold">Fog & Wisps</span>
+          </RichCard>
+        ),
         href: '/fog-and-wisps'
       }
     }

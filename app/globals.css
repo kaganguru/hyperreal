@@ -63,3 +63,18 @@
   background-color: black;
   border-color: var(--x-color-neutral-800);
 } */
+
+/* Navbar dropdowns whose items are RichCards (the Products menu in
+   content/_meta.jsx) lay the cards out in a row instead of a column. Nextra
+   doesn't expose the dropdown's classes, so this targets its markup: a
+   headlessui role="menu" with each item an <a role="menuitem">. Left unlayered
+   on purpose, so it beats Nextra's layered utilities (its item padding). */
+[role='menu']:has([data-rich-card]) {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+
+[role='menu']:has([data-rich-card]) > [role='menuitem'] {
+  padding: 0;
+}

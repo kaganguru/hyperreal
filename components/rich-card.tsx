@@ -19,6 +19,14 @@ type RichCardProps = {
   /** CSS background behind the cover, visible until it paints or if it 404s. */
   coverBackground?: string
   /**
+   * Hover effects without a link of the card's own — for when something around
+   * the card is already the link, like a Nextra menu item. Defaults to on when
+   * `href` is set.
+   */
+  hoverable?: boolean
+  /** `compact` is a short fixed-height strip, for menus. */
+  size?: 'default' | 'compact'
+  /**
    * Body content: titles, text, prices, buttons — anything. When the card has
    * an `href`, give interactive children `relative z-20` so they sit above the
    * card-wide link and stay clickable on their own.
@@ -41,18 +49,22 @@ export function RichCard({
   hrefLabel,
   badge,
   coverBackground,
+  hoverable = Boolean(href),
+  size = 'default',
   children
 }: RichCardProps) {
   const hasCover = Boolean(image || video)
+  const compact = size === 'compact'
   const coverClass =
     'block size-full object-cover transition-transform duration-500 group-hover:scale-105'
 
   return (
     <div
+      data-rich-card
       className={[
         'group relative isolate flex h-full flex-col justify-end overflow-hidden rounded-md bg-black shadow-[0_0_12px_rgb(0_0_0/0.18)] font-normal text-neutral-50',
-        hasCover && 'min-h-48',
-        href && 'transition-shadow duration-200 hover:shadow-[0_0_20px_rgb(0_0_0/0.3)]'
+        compact ? 'h-16 w-60 max-w-full' : hasCover && 'min-h-48',
+        hoverable && 'transition-shadow duration-200 hover:shadow-[0_0_20px_rgb(0_0_0/0.3)]'
       ]
         .filter(Boolean)
         .join(' ')}
@@ -88,9 +100,10 @@ export function RichCard({
 
       <div
         className={[
-          'flex flex-col gap-1 px-3 pb-3',
+          'flex flex-col gap-1',
+          compact ? 'px-2.5 pb-2' : 'px-3 pb-3',
           hasCover
-            ? 'bg-linear-to-t from-black from-30% via-black/70 to-transparent pt-12'
+            ? `bg-linear-to-t from-black from-30% via-black/70 to-transparent ${compact ? 'pt-6' : 'pt-12'}`
             : 'pt-2.5'
         ].join(' ')}
       >
