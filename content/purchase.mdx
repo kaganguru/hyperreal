@@ -1,16 +1,17 @@
 ---
-title: Get Started
+title: Purchase
 description: What ships in the Hyperreal bundle, what it needs, and how to install it.
 ---
 
-import { Callout, Cards, Steps } from 'nextra/components'
+import { Callout, Steps } from 'nextra/components'
+import { Cards } from '@/components/cards'
 import { CheckoutButton } from '@/components/purchase-button'
 
 # Get Hyperreal
 
-One bundle, eight add-ons, no subscription. Everything below is delivered as a
-plain `addons/` folder you drop into your Godot project — no compiled binaries,
-no network calls, no license server.
+One bundle, no subscription. Everything below is delivered as a plain `addons/`
+folder you drop into your Godot project — no compiled binaries, no network
+calls, no license server.
 
 <div style={{ marginTop: '1.5rem', marginBottom: '2rem' }}>
   <CheckoutButton />
@@ -20,14 +21,11 @@ no network calls, no license server.
 
 | Add-on | What it is |
 | --- | --- |
-| [Terrain](/products/terrain) | A Terrain3D material built around materials instead of textures, with perceptual colour control and richer per-material properties. |
-| [Whitewater](/products/whitewater) | Surface, depth, caustics, subsurface and a full underwater state — in one material. |
-| [Wisp](/products/wisp) | The billboard card shader: flipbooks, flow, wind, and every fade needed to hide the illusion. |
-| [Camera](/products/camera) | Lens optics (aberration, flare, dirt, vignette, grain), layered camera shake, and a camera operator. |
-| [Sky & Fog](/products/sky) | Distance fog that matches your actual sky, plus dome, room and half-panorama sky projections. |
-| [Eccentric Shading](/toolkit/eccentric-shading) | The lighting model the whole bundle shares — Godot's, matched exactly, then extended. |
-| [Billboarding](/toolkit/billboarding) | Camera-facing geometry with four behaviours for holding up at extreme angles. |
-| [Texture Tools](/toolkit/texture-tools) | Texture arrays built in the editor, with format, size and mipmap reconciliation. |
+| [Terrain](/terrain) | A Terrain3D material built around materials instead of textures, with perceptual colour control and richer per-material properties. |
+| [Water](/water) | Surface, depth, caustics, subsurface and a full underwater state — in one material. |
+| [Fog](/fog-and-wisps/fog-user-manual) | Distance fog that matches your actual sky, on either renderer. |
+| [Wisps](/fog-and-wisps/wisps-user-manual) | The billboard card shader: flipbooks, flow, wind, and every fade needed to hide the illusion. |
+| [Camera](/camera) | Lens optics (aberration, flare, dirt, vignette, grain), layered camera shake, and a camera operator. |
 
 Also included:
 
@@ -63,9 +61,7 @@ Grab the archive from your itch library. Inside is a single `addons/` folder.
 
 ### Copy into your project
 
-Copy the add-ons you want into your project's `addons/` directory. They are
-independent apart from two [toolkit dependencies](/toolkit#dependencies):
-Terrain needs Eccentric Shading and Texture Tools, and Wisp needs Billboarding.
+Copy the add-ons you want into your project's `addons/` directory.
 
 ### Install Terrain3D (Terrain only)
 
@@ -88,7 +84,8 @@ inside another pack.
 ## Where to go next
 
 <Cards>
-  <Cards.Card title="All products" href="/products" arrow />
-  <Cards.Card title="Terrain" href="/products/terrain" arrow />
-  <Cards.Card title="Whitewater" href="/products/whitewater" arrow />
+  <Cards.Card title="Terrain" href="/terrain" arrow />
+  <Cards.Card title="Water" href="/water" arrow />
+  <Cards.Card title="Fog & Wisps" href="/fog-and-wisps" arrow />
+  <Cards.Card title="Camera" href="/camera" arrow />
 </Cards>

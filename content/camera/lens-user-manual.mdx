@@ -1,0 +1,41 @@
+---
+title: Lens User Manual
+description: Chromatic aberration, lens flare, lens dirt, vignette and grain.
+---
+
+# Lens User Manual
+
+`Lens` is a single post-processing effect containing four optical effects. Each
+is an independent toggle, and a disabled effect costs nothing.
+
+## Chromatic aberration
+
+Channel separation that grows toward the edges of the frame, with a
+**strength** control and a **radial** mode. The cheapest way to stop a render
+looking digitally clean.
+
+## Lens flare
+
+Ghosts and halo, tuned against real camera reference rather than a stock bloom.
+
+- **Nine ghosts**, each with its own colour and position along the flare axis.
+- **A halo** with its own radius, colour fringing and intensity.
+- **Source and softness controls** — what counts as a light source and how soft
+  the result is, so a flare responds to your lighting instead of blowing out on
+  anything bright.
+
+## Lens dirt
+
+Your own grime texture, lit only by genuinely bright parts of the scene — so
+the smear across the lens flares when you look at the sun and stays invisible
+otherwise. **Intensity** and **spread** controls.
+
+## Vignette and grain
+
+| Effect | Controls |
+| --- | --- |
+| Vignette | Strength, size, softness |
+| Grain | Amount, colour noise, boil rate |
+
+The boil rate gives you grain that moves at a filmic pace instead of buzzing
+every frame.

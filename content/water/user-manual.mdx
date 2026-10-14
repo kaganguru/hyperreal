@@ -1,0 +1,82 @@
+---
+title: Water User Manual
+sidebarTitle: User Manual
+description: Setting up Hyperreal Water and tuning the surface, depth and underwater state.
+---
+
+import { Callout } from 'nextra/components'
+
+# Water User Manual
+
+## Setting up
+
+Assign the Water material to any mesh — a plane, a river spline, a bathtub. It
+finds the bottom on its own, so there's no volume to author and no second
+material for the underside: a single mesh renders correctly viewed from either
+side.
+
+Water has no dependencies and runs on either renderer.
+
+## Surface
+
+Four independent layers of motion stack into the surface:
+
+| Layer | Role |
+| --- | --- |
+| Swell | The large-scale silhouette of the water |
+| Ripples | Mid-scale movement on top of the swell |
+| Fine detail (×2) | Two grades of small-scale sparkle |
+
+Each layer has its own **scale**, **speed** and **strength**, so you can tune
+the silhouette of the water separately from its sparkle. One **master speed**
+drives them all when you just want the whole thing calmer or angrier.
+
+Every layer takes your own textures, so the character of the water is yours to
+change. Tiling is broken up automatically — no visible repeat on a large body
+of water, at any distance.
+
+## Depth and colour
+
+You control:
+
+- **How fast** light is absorbed with depth.
+- **Where** the absorption starts.
+- **What colour** the water absorbs toward.
+
+**Refraction** bends whatever is behind the surface. A **distance fade** keeps
+a large lake looking like water at the horizon instead of dissolving into
+shimmer.
+
+## Caustics and subsurface
+
+- **Caustics** — scale, intensity and wobble.
+- **Subsurface scattering** — lights the backs of waves when the sun is behind
+  a crest.
+
+## Underwater
+
+The underwater state switches on automatically when the camera crosses the
+surface. It has its own controls:
+
+- **Colour absorption with distance**, tunable per channel — the reason deep
+  water goes blue-green.
+- **Depth falloff**, tuned for looking outward rather than down.
+- **Caustics intensity** on everything around you.
+- **Refractive warp** across the whole view.
+- **God rays**, with speed and density controls.
+
+## Performance
+
+<Callout type="info">
+  Water is a screen-space effect: cost scales with how much of the frame it
+  covers, not with how large the body of water is.
+</Callout>
+
+Detail that has no effect at distance is skipped, and effects fade out before
+they stop earning their cost.
+
+## Not included
+
+So you know what you're buying: no screen-space reflections, no simulated wave
+displacement, no wave-driven foam, and no impact or ripple-spawning system.
+Waves are texture-driven, which is what keeps them cheap and art-directable.

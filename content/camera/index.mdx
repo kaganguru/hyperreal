@@ -1,0 +1,49 @@
+---
+title: Camera
+description: Lens optics, layered shake, and a camera operator that shoots your scene.
+asIndexPage: true
+---
+
+import { Callout } from 'nextra/components'
+import { Cards } from '@/components/cards'
+
+# Camera
+
+Three pieces that turn a `Camera3D` into a camera: the optics in front of the
+sensor, the hand holding it, and the operator walking it around.
+
+## Lens
+
+`Lens` folds four optical effects into one post-processing effect — chromatic
+aberration, lens flare, lens dirt, and vignette with grain — and it runs on the
+**Mobile** renderer, which is where most Godot projects that care about
+performance actually live.
+
+Each effect is an independent toggle. Turning one off costs nothing at all, so
+you only pay for the look you're using.
+
+<Callout type="info">
+  Godot's own glow and post effects don't cover any of this on Mobile. `Lens`
+  is a drop-in on either renderer.
+</Callout>
+
+## CameraRig
+
+`CameraRig` applies layered shake to every camera under it, in the editor and
+at runtime, so you can see the movement while you're framing rather than
+guessing at it. Shakes stack, fade in and out, and resolve without snapping —
+hold a low idle sway, add a hit reaction on top, and let it settle.
+
+## CameraMan
+
+`CameraMan` pilots a rig around the world, on foot or as a drone, with
+smoothing on both movement and look. The result is a camera you can hand to
+someone to shoot your scene with, instead of a debug fly-cam you have to
+apologise for in the trailer.
+
+<Cards columns={1}>
+  <Cards.Card title="Lens User Manual" href="/camera/lens-user-manual" arrow>
+  </Cards.Card>
+  <Cards.Card title="CameraRig & CameraMan User Manual" href="/camera/camera-rig-and-man-user-manual" arrow>
+  </Cards.Card>
+</Cards>

@@ -26,8 +26,15 @@ export default async function RootLayout({
 }) {
   const navbar = (
     <Navbar
+      // Always-dark navbar: Nextra's and our dark styles all key off being
+      // inside `.dark`, so this renders the links, search and button dark in
+      // both themes. `dark` sets no text colour of its own, and the active link
+      // inherits it (text-current), so text-white and scheme-dark stand in for
+      // what the dark theme gives the page. The background and border are set
+      // in globals.css.
+      // className="dark scheme-dark text-white"
       logo={
-        <span className="flex items-center gap-1 text-[1.5rem] font-bold text-blue-100">
+        <span className="flex items-center gap-1 text-[1.5rem] font-bold">
           <Image src={logo} alt="Hyperreal" height={18} priority/>
           Hyperreal<span className='text-[0.5rem]'>©</span>
         </span>
@@ -40,21 +47,10 @@ export default async function RootLayout({
   return (
     <html lang="en" dir="ltr" suppressHydrationWarning>
       <Head
-        backgroundColor={{ dark: 'rgb(16, 16, 10)' }}
-        color={{
-          hue: 37,
-          saturation: 0,
-          lightness: {
-            light: 20,
-            dark: 84
-          }
-        }}
       />
       <body>
         <Layout
           navbar={navbar}
-          editLink="Edit this page on GitHub"
-          docsRepositoryBase="https://github.com/kaganguru/hyperreal/tree/main"
           sidebar={{ defaultMenuCollapseLevel: 1 }}
           pageMap={pageMap}
         >

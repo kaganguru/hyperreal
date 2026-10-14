@@ -1,0 +1,112 @@
+---
+title: Terrain User Manual
+description: Setting up Hyperreal Terrain, tuning materials, and importing terrain data.
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# Terrain User Manual
+
+## Requirements
+
+- Godot **4.7+**
+- [Terrain3D](https://github.com/TokisanGames/Terrain3D) **1.1**, installed and
+  enabled. You only need its `addons/terrain_3d` folder. See
+  [Purchase](/purchase#install) for the full install steps.
+
+## Setting up
+
+<Steps>
+
+### Add the terrain node
+
+Add the Hyperreal terrain node to your scene. It keeps all of Terrain3D's
+regions, sculpting, painting and streaming tools.
+
+### Import your terrain data
+
+Point the node at a folder of terrain assets — see [Importing](#importing)
+below.
+
+### Build your material list
+
+Add materials to the terrain's list and assign textures where a material needs
+them. A material's paint order is its position in the list; drag to reorder.
+
+</Steps>
+
+## Material properties
+
+Every material carries its own full property block, grouped so the inspector
+stays readable:
+
+| Group | Controls |
+| --- | --- |
+| Colour | Lightness, chroma and hue offsets, plus how much macro variation reaches this material |
+| Textures | Two texture slots — enough for any common packing convention — and an average colour |
+| Material | Specularity, roughness, AO strength and AO influence, near and far normal map depth |
+| Eccentric | Light wrap colour and width, sheen colour and roughness |
+| UV | Scale, detiling shift, detiling rotation |
+
+**Specularity**, **far normal map depth** and the whole **eccentric** group are
+additions over stock Terrain3D.
+
+Editing any of these is instant. Nothing recompiles.
+
+### Average colour
+
+Average colour is derived from the texture automatically the moment you assign
+one. If the source image changes later, press the refresh button to recompute
+it.
+
+### Normal map depth
+
+Near and far depth are set separately. Push near depth hard for close-up
+detail, and ease far depth off so ridgelines stay readable at range instead of
+aliasing.
+
+## Material types
+
+Water, snow, sand and anything else you invent are just material types with
+their own personality. A water material speaks in water terms — flow rather
+than ambient occlusion — hides the properties that don't apply to it, and
+brings sensible defaults with it, so you're not translating between what the
+inspector says and what you mean.
+
+Making your own type is a small script. The terrain itself never has to learn
+about it.
+
+## Texture arrays
+
+Terrain assembles its shared texture arrays for you. Real texture sets rarely
+agree on format, size and mipmaps — one is compressed, one is a different
+resolution, one came from a different pack — and Godot requires every layer of
+an array to match. Mismatches are reconciled under a policy you choose:
+
+- **Format** — follow the first texture, force a specific format, or refuse to
+  build on a mismatch.
+- **Size** — follow the first, resize up to the largest, resize down to the
+  smallest, or refuse on a mismatch.
+- **Mipmaps** — follow the first, force on, force off, or refuse on a mismatch.
+
+On a shipping texture set you usually *want* to be told that one file doesn't
+match, rather than have it quietly resampled — that's what the strict modes
+are for.
+
+## Importing
+
+The terrain node is its own importer. Point it at a folder of terrain assets
+and it works out which file is the heightmap, which is the control map and
+which is the colour map from their names.
+
+- **Accepted formats:** EXR, R16, PNG, WebP and JPEG.
+- **Transform on import:** position, scale and height offset are applied on
+  the way in.
+- **Starting over:** the guarded **Clear Terrain** button wipes the terrain.
+
+No import dialog, no intermediate format, no round trip.
+
+<Callout type="warning">
+  **Clear Terrain** removes the imported terrain data from the node. It's
+  guarded so you can't hit it by accident — use it only when you mean to start over.
+</Callout>

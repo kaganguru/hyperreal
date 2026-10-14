@@ -1,40 +1,36 @@
 ---
-title: Sky & Fog
-description: Distance fog that matches your actual sky, plus sky projections that parallax.
+title: Fog User Manual
+description: Setting up Fog, tuning it against your sky, and using the sky projections.
 ---
 
 import { Callout } from 'nextra/components'
 
-# Sky & Fog
+# Fog User Manual
 
-## Fog
+## Setting up
 
-Custom fog in Godot never quite matches the horizon. Distant geometry fades
-toward a colour you picked, the sky behind it is a different colour, and the
-seam gives the whole shot away.
+Add `Fog` as a post-processing effect and point it at your scene's sky — any
+Godot sky works, including a physically simulated one. It follows along
+automatically from there. It runs on both the **Mobile** and **Forward+**
+renderers.
 
-`Fog` fixes that. It tints distance toward **your actual sky**, per view
-direction, so a mountain ten kilometres out dissolves into the clouds that are
-genuinely behind it. Point it at any Godot sky — including a physically
-simulated one — and it follows along automatically. There's nothing to assign
-and nothing to keep in sync.
+## Controls
 
-Like `Lens`, it runs on the **Mobile** renderer.
+| Control | What it does |
+| --- | --- |
+| **Density** | How thick the fog is, and how far it can take a surface toward fully hidden. |
+| **Aerial perspective** | A blend from a fog colour of your choosing to the pure sky — the same control name you already know from Godot's `Environment`. |
+| **Sky resolve with distance** | Near geometry picks up a soft, hazy version of the sky; far geometry picks up a sharp one. That gradient is what makes distance read as air rather than as a filter. |
+| **Sky brightness** | Brightens or darkens the sampled sky to line the fog up with your scene. |
+| **Sky rotation** | Lines the fog up with your scene's sky. |
+| **Quality** | Trades fidelity against cost. |
 
-What you control:
-
-- **Density** and how far fog can take a surface toward fully hidden.
-- **Aerial perspective** — a blend from a fog colour of your choosing to the
-  pure sky, matching the control name you already know from Godot's
-  `Environment`.
-- **How the sky resolves with distance** — near geometry picks up a soft, hazy
-  version of the sky, far geometry picks up a sharp one. That gradient is what
-  makes distance read as air rather than as a filter.
-- **Sky brightness** and **sky rotation**, to line the fog up with your scene.
-- **Quality**, traded against cost.
+## Debug view
 
 A debug view puts depth, distance, fog amount and sampled sky colour on screen
 while you tune.
+
+## Refreshing the sky
 
 <Callout type="warning">
   Fog reads a snapshot of your sky. It refreshes automatically when you change

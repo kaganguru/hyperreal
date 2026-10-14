@@ -1,0 +1,72 @@
+---
+title: CameraRig & CameraMan User Manual
+description: Layered camera shake, and an operator that walks and flies your camera.
+---
+
+import { Callout } from 'nextra/components'
+
+# CameraRig & CameraMan User Manual
+
+## CameraRig
+
+`CameraRig` applies layered shake to every camera under it, in the editor and
+at runtime.
+
+### How shakes behave
+
+Shakes stack. Each fades in, plays for a set duration or loops until you remove
+it, then fades out — so you can hold a low idle sway, add a hit reaction on top,
+and let it resolve without either one snapping. Up to **twenty** can run at
+once.
+
+### Included motions
+
+Nine camera motions ship with it:
+
+| Translation and rotation | Rotation only |
+| --- | --- |
+| Investigation | Gravel bike |
+| Close-up | Spaceship |
+| Wedding | Rough handheld |
+| Walk to the store | |
+| Handycam run | |
+| Out a car window | |
+
+Each can be sped up, slowed down and scaled without stepping or stuttering.
+
+### Your own shakes
+
+Author a shake in the inspector, save it as a resource, and spawn it from a
+script in one line. Adding or removing a camera under the rig needs no restart.
+
+## CameraMan
+
+`CameraMan` pilots a [`CameraRig`](#camerarig) around the world in two modes:
+
+- **Ground** — a gravity-bound first-person operator, with jump.
+- **Drone** — free-look flight.
+
+### Switching modes
+
+Switching between them is one input action, and you choose what returning
+means: stay wherever the drone ended up, or ease back to where you took off
+from, at a speed and easing you set.
+
+### Smoothing
+
+Movement and look are smoothed independently, per mode, so footage reads as
+deliberate camera work rather than raw mouse input.
+
+### Shake presets
+
+Four [shake](#camerarig) presets swap automatically as the operator starts, stops and
+changes mode:
+
+| | Idle | Moving |
+| --- | --- | --- |
+| **Ground** | Ground idle | Ground moving |
+| **Drone** | Drone idle | Drone moving |
+
+<Callout type="info">
+  Leave any preset empty and that state simply runs clean.
+</Callout>

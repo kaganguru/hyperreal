@@ -1,0 +1,48 @@
+---
+title: Fog & Wisps
+description: Distance fog that matches your actual sky, and the billboard card shader for smoke, dust and foliage.
+asIndexPage: true
+---
+
+import { Cards } from '@/components/cards'
+
+# Fog & Wisps
+
+Two effects for the air between the camera and the scene: fog that dissolves
+distance into your real sky, and cards that put smoke, dust and foliage in it
+without giving away that they're flat.
+
+## Fog
+
+Custom fog in Godot never quite matches the horizon. Distant geometry fades
+toward a colour you picked, the sky behind it is a different colour, and the
+seam gives the whole shot away.
+
+`Fog` fixes that. It tints distance toward **your actual sky**, per view
+direction, so a mountain ten kilometres out dissolves into the clouds that are
+genuinely behind it. Point it at any Godot sky — including a physically
+simulated one — and it follows along automatically. There's nothing to assign
+and nothing to keep in sync.
+
+It runs on the **Mobile** renderer as well as Forward+.
+
+## Wisps
+
+Wisps is the master card shader. Anything you'd render on a quad that has to
+face the camera and not look like a quad — smoke, dust, fire, splashes,
+distant foliage, magic — goes through it.
+
+A billboard is an illusion, and every problem with it is a moment where the
+illusion breaks. Wisps is mostly a collection of solutions to those moments:
+blended flipbooks that don't strobe, flow that never pops, wind that moves a
+stand of foliage like one plant, and a fade for every angle that would give the
+quad away.
+
+<Cards columns={1}>
+  <Cards.Card title="Fog User Manual" href="/fog-and-wisps/fog-user-manual" arrow>
+    Density, aerial perspective, sky matching, and sky projections.
+  </Cards.Card>
+  <Cards.Card title="Wisps User Manual" href="/fog-and-wisps/wisps-user-manual" arrow>
+    Animation, flow, wind, fades and facing behaviours.
+  </Cards.Card>
+</Cards>

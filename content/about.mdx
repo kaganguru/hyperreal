@@ -1,0 +1,50 @@
+---
+title: About
+description: The design principles behind Hyperreal.
+---
+
+# About Hyperreal
+
+Hyperreal is a set of photorealistic environment shaders for Godot 4.7+. Every
+surface in it lights the same way, so subsurface, light wrap and sheen behave
+identically on terrain, on water and on cards — a look you establish once
+carries across the whole scene.
+
+## Design principles
+
+**Cheap by default.** Every effect is built for the Mobile renderer first, not
+retrofitted to it. Turning a feature off costs nothing rather than a little.
+
+**Authorable, not procedural.** Terrain materials are property blocks you tune
+by hand, not noise stacks you fight. Water is driven by textures you can
+replace with your own.
+
+**One lighting model.** Terrain, water and cards all light the same way, so a
+look you establish on one carries to the others.
+
+**Real inspector controls.** Everything is exposed as named, ranged, grouped
+properties — no magic numbers buried in shader code.
+
+## One lighting model
+
+Writing a custom lighting function in Godot means giving up the engine's
+lighting entirely — and then spending a week trying to match it by eye. Objects
+shaded by your shader sit next to objects shaded by Godot's, and they never
+quite belong to the same scene.
+
+Hyperreal's lighting starts from **exact parity with Godot's own lighting** —
+same diffuse, same specular, same energy at every angle and roughness — so its
+materials belong in the scene from the first frame. Then it adds what
+photorealistic surfaces need and Godot doesn't offer: subsurface scattering,
+light wrap, sheen and per-fragment specularity.
+
+It also closes a gap in Godot's own specular energy handling, which relies on
+data a user shader can't reach. Hand-written Godot lighting is usually slightly
+dimmer than the built-in path at grazing angles and high roughness — which is
+why custom shaders so often look subtly *off* even when the maths is right.
+Hyperreal materials keep their intended brightness at every angle.
+
+## Open by design
+
+Every shader ships readable and editable. Nothing is obfuscated, and nothing
+phones home.
